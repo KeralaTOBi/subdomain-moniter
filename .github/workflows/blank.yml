@@ -21,96 +21,72 @@ jobs:
         with:
           persist-credentials: true
           fetch-depth: 0
+
       - name: Cache Recon Tools
         id: cache-tools
         uses: actions/cache@v4
         with:
-          # This is where we will store our binaries
-          path: /usr/local/bin/recon-tools
-          key: ${{ runner.os }}-recon-tools-v1
+          path: ~/recon-tools
+          key: ${{ runner.os }}-recon-tools-v3
 
       - name: Install Tools (Only if Cache Miss)
         if: steps.cache-tools.outputs.cache-hit != 'true'
         run: |
-          mkdir -p /usr/local/bin/recon-tools
+          mkdir -p ~/recon-tools
           
-          # Install Subfinder
+          # 1. Subfinder
           LATEST_SUB=$(curl -s https://api.github.com/repos/projectdiscovery/subfinder/releases/latest | jq -r '.tag_name' | sed 's/v//')
           curl -sL "https://github.com/projectdiscovery/subfinder/releases/download/v${LATEST_SUB}/subfinder_${LATEST_SUB}_linux_amd64.zip" -o subfinder.zip
-          unzip -o subfinder.zip && mv subfinder /usr/local/bin/recon-tools/
+          unzip -o subfinder.zip && mv subfinder ~/recon-tools/
           
-          # Install Assetfinder
+          # 2. Assetfinder
           sudo apt-get update && sudo apt-get install -y golang-go
           go install github.com/tomnomnom/assetfinder@latest
-          cp ~/go/bin/assetfinder /usr/local/bin/recon-tools/
+          cp ~/go/bin/assetfinder ~/recon-tools/
 
-          # Install Amass
+          # 3. Amass (Fixed path move)
           LATEST_AMASS=$(curl -s https://api.github.com/repos/owasp-amass/amass/releases/latest | jq -r '.tag_name')
           curl -sL "https://github.com/owasp-amass/amass/releases/download/${LATEST_AMASS}/amass_linux_amd64.zip" -o amass.zip
-          unzip -o amass.zip && mv amass_linux_amd64/amass /usr/local/bin/recon-tools/
+          unzip -o amass.zip
+          # Finding the binary specifically to avoid folder name issues
+          find . -name "amass" -type f -exec mv {} ~/recon-tools/ \;
 
           rm -rf subfinder.zip amass.zip amass_linux_amd64
+          chmod +x ~/recon-tools/*
 
       - name: Add Tools to PATH
-        run: echo "/usr/local/bin/recon-tools" >> $GITHUB_PATH
-
-      - name: Multi-Tool Subdomain Discovery
-        # No changes needed here, tools are now in the PATH
         run: |
-          subfinder -d miro.com -silent > subs.txt
-          assetfinder --subs-only miro.com >> subs.txt
-          amass enum -passive -d miro.com >> subs.txt
-          sort -u subs.txt -o sub_recon/current_scan.txt
-
-      - name: Install Tools
-        run: |
-          # Install Go for Assetfinder
-          sudo apt-get update && sudo apt-get install -y golang-go
-          
-          # Install Subfinder
-          LATEST_SUB=$(curl -s https://api.github.com/repos/projectdiscovery/subfinder/releases/latest | jq -r '.tag_name' | sed 's/v//')
-          curl -sL "https://github.com/projectdiscovery/subfinder/releases/download/v${LATEST_SUB}/subfinder_${LATEST_SUB}_linux_amd64.zip" -o subfinder.zip
-          unzip -o subfinder.zip && sudo mv subfinder /usr/local/bin/
-          
-          # Install Assetfinder
-          go install github.com/tomnomnom/assetfinder@latest
-          sudo cp ~/go/bin/assetfinder /usr/local/bin/
-
-          # Install Amass (Snap is slow in CI, using binary)
-          LATEST_AMASS=$(curl -s https://api.github.com/repos/owasp-amass/amass/releases/latest | jq -r '.tag_name')
-          curl -sL "https://github.com/owasp-amass/amass/releases/download/${LATEST_AMASS}/amass_linux_amd64.zip" -o amass.zip
-          unzip -o amass.zip && sudo mv amass_linux_amd64/amass /usr/local/bin/
-
-          rm -rf subfinder.zip amass.zip amass_linux_amd64
+          echo "$HOME/recon-tools" >> $GITHUB_PATH
+          # Force export for current shell just in case
+          echo "PATH=$HOME/recon-tools:$PATH" >> $GITHUB_ENV
 
       - name: Multi-Tool Subdomain Discovery
         run: |
           mkdir -p sub_recon
           TARGET="miro.com"
-          touch sub_recon/all_subs.txt
           
-          echo "[+] Running Subfinder..."
-          subfinder -d $TARGET -silent > sub_recon/subs_1.txt
+          echo "[+] Starting Subfinder..."
+          subfinder -d $TARGET -silent > sub_recon/subs1.txt || true
           
-          echo "[+] Running Assetfinder..."
-          assetfinder --subs-only $TARGET > sub_recon/subs_2.txt
+          echo "[+] Starting Assetfinder..."
+          assetfinder --subs-only $TARGET > sub_recon/subs2.txt || true
           
-          echo "[+] Running Amass (Passive)..."
-          amass enum -passive -d $TARGET > sub_recon/subs_3.txt || true
-
-          # Merge, unique, and filter
-          cat sub_recon/subs_1.txt sub_recon/subs_2.txt sub_recon/subs_3.txt | sort -u | grep "$TARGET" > sub_recon/current_scan.txt
+          echo "[+] Starting Amass..."
+          amass enum -passive -d $TARGET > sub_recon/subs3.txt || true
+          
+          # Merge all results into the final scan file
+          cat sub_recon/subs1.txt sub_recon/subs2.txt sub_recon/subs3.txt | sort -u | grep "$TARGET" > sub_recon/current_scan.txt
 
       - name: Compare and Find New Subdomains
         id: compare
         run: |
+          touch sub_recon/all_subs.txt
           if [ ! -s sub_recon/all_subs.txt ]; then
             echo "IS_FIRST_RUN=true" >> $GITHUB_ENV
           else
             echo "IS_FIRST_RUN=false" >> $GITHUB_ENV
           fi
 
-          # Find lines in current_scan not in all_subs
           grep -Fvxf sub_recon/all_subs.txt sub_recon/current_scan.txt > sub_recon/new_subs.txt || true
 
           if [ -s sub_recon/new_subs.txt ]; then
@@ -132,7 +108,7 @@ jobs:
           payload: |
             {
               "channel_id": "C0AGVMVMRT3",
-              "initial_comment": "🚀 **New Attack Surface Found!**\nTarget: `miro.com`\nNew Subdomains: `${{ steps.compare.outputs.new_count }}`",
+              "initial_comment": "🎯 New subdomains discovered for miro.com! (Total: ${{ steps.compare.outputs.new_count }})",
               "file": "./sub_recon/new_subs.txt",
               "filename": "miro_new_subs.txt"
             }
@@ -148,4 +124,4 @@ jobs:
 
       - name: Cleanup
         if: always()
-        run: rm -f sub_recon/subs_*.txt sub_recon/current_scan.txt sub_recon/new_subs.txt
+        run: rm -f sub_recon/subs1.txt sub_recon/subs2.txt sub_recon/subs3.txt sub_recon/current_scan.txt sub_recon/new_subs.txt
