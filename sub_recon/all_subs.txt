@@ -145,6 +145,7 @@ miro-insights-shared-images.au01.miro.com
 miro-insights-shared-images.eu02.miro.com
 miro-insights-shared-models.au01.miro.com
 miro-insights-shared-models.eu02.miro.com
+miro.com
 miroherocommunity.miro.com
 mirostatic.eu02.miro.com
 mta.account.miro.com
