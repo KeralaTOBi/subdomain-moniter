@@ -30,9 +30,6 @@ bid46k4.marketing.miro.com
 billing-and-payment.miro.com
 billing.miro.com
 board-export-cdn.au01.miro.com
-board-export-service-cdn.au01.miro.com
-board-export-service-cdn.eu01.miro.com
-board-export-service-cdn.eu02.miro.com
 board-export-service-cdn.us01.miro.com
 board-export.au01.miro.com
 board-export.eu01.miro.com
