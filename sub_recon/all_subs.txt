@@ -1,8 +1,5 @@
 a.developers.miro.com
 academy.miro.com
-admin.au01.miro.com
-admin.eu01.miro.com
-admin.eu02.miro.com
 admin.miro.com
 admin.us.miro.com
 admin.us01.miro.com
