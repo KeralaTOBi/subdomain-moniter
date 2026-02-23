@@ -22,19 +22,44 @@ jobs:
           persist-credentials: true
           fetch-depth: 0
 
-      - name: Install Subfinder (Binary)
+      - name: Install Tools
         run: |
-          LATEST_VERSION=$(curl -s https://api.github.com/repos/projectdiscovery/subfinder/releases/latest | jq -r '.tag_name' | sed 's/v//')
-          curl -sL "https://github.com/projectdiscovery/subfinder/releases/download/v${LATEST_VERSION}/subfinder_${LATEST_VERSION}_linux_amd64.zip" -o subfinder.zip
-          unzip -o subfinder.zip
-          sudo mv subfinder /usr/local/bin/
-          rm -f subfinder.zip subfinder
+          # Install Go for Assetfinder
+          sudo apt-get update && sudo apt-get install -y golang-go
+          
+          # Install Subfinder
+          LATEST_SUB=$(curl -s https://api.github.com/repos/projectdiscovery/subfinder/releases/latest | jq -r '.tag_name' | sed 's/v//')
+          curl -sL "https://github.com/projectdiscovery/subfinder/releases/download/v${LATEST_SUB}/subfinder_${LATEST_SUB}_linux_amd64.zip" -o subfinder.zip
+          unzip -o subfinder.zip && sudo mv subfinder /usr/local/bin/
+          
+          # Install Assetfinder
+          go install github.com/tomnomnom/assetfinder@latest
+          sudo cp ~/go/bin/assetfinder /usr/local/bin/
 
-      - name: Run Subdomain Discovery
+          # Install Amass (Snap is slow in CI, using binary)
+          LATEST_AMASS=$(curl -s https://api.github.com/repos/owasp-amass/amass/releases/latest | jq -r '.tag_name')
+          curl -sL "https://github.com/owasp-amass/amass/releases/download/${LATEST_AMASS}/amass_linux_amd64.zip" -o amass.zip
+          unzip -o amass.zip && sudo mv amass_linux_amd64/amass /usr/local/bin/
+
+          rm -rf subfinder.zip amass.zip amass_linux_amd64
+
+      - name: Multi-Tool Subdomain Discovery
         run: |
           mkdir -p sub_recon
+          TARGET="miro.com"
           touch sub_recon/all_subs.txt
-          subfinder -d miro.com -silent > sub_recon/current_scan.txt
+          
+          echo "[+] Running Subfinder..."
+          subfinder -d $TARGET -silent > sub_recon/subs_1.txt
+          
+          echo "[+] Running Assetfinder..."
+          assetfinder --subs-only $TARGET > sub_recon/subs_2.txt
+          
+          echo "[+] Running Amass (Passive)..."
+          amass enum -passive -d $TARGET > sub_recon/subs_3.txt || true
+
+          # Merge, unique, and filter
+          cat sub_recon/subs_1.txt sub_recon/subs_2.txt sub_recon/subs_3.txt | sort -u | grep "$TARGET" > sub_recon/current_scan.txt
 
       - name: Compare and Find New Subdomains
         id: compare
@@ -45,6 +70,7 @@ jobs:
             echo "IS_FIRST_RUN=false" >> $GITHUB_ENV
           fi
 
+          # Find lines in current_scan not in all_subs
           grep -Fvxf sub_recon/all_subs.txt sub_recon/current_scan.txt > sub_recon/new_subs.txt || true
 
           if [ -s sub_recon/new_subs.txt ]; then
@@ -66,7 +92,7 @@ jobs:
           payload: |
             {
               "channel_id": "C0AGVMVMRT3",
-              "initial_comment": "🎯 New subdomains discovered for miro.com! (Total: ${{ steps.compare.outputs.new_count }})",
+              "initial_comment": "🚀 **New Attack Surface Found!**\nTarget: `miro.com`\nNew Subdomains: `${{ steps.compare.outputs.new_count }}`",
               "file": "./sub_recon/new_subs.txt",
               "filename": "miro_new_subs.txt"
             }
@@ -77,10 +103,9 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add sub_recon/all_subs.txt
-          git commit -m "Recon Update [miro.com]: $(date +'%Y-%m-%d %H:%M')"
+          git commit -m "Recon Update: found ${{ steps.compare.outputs.new_count }} new subs"
           git push origin main
 
-      - name: Cleanup Temporary Files
+      - name: Cleanup
         if: always()
-        run: |
-          rm -f sub_recon/current_scan.txt sub_recon/new_subs.txt
+        run: rm -f sub_recon/subs_*.txt sub_recon/current_scan.txt sub_recon/new_subs.txt
