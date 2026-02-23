@@ -18,16 +18,6 @@ apse1.media.meet.miro.com
 apse2.media.av.miro.com
 apse4.media.av.miro.com
 apso1.media.meet.miro.com
-atlantis.shared.av.miro.com
-au.miro.com
-au01.miro.com
-beta.developers.miro.com
-betaapi.developers.miro.com
-bid46k4.3782705m.miro.com
-bid46k4.marketing.miro.com
-billing-and-payment.miro.com
-billing.miro.com
-board-export-cdn.au01.miro.com
 board-export-service-cdn.au01.miro.com
 board-export-service-cdn.eu01.miro.com
 board-export-service-cdn.eu02.miro.com
