@@ -1,4 +1,4 @@
-name: miro.com
+name: recon
 on:
   schedule:
     - cron: "0 */1 * * *"  # Every hour
@@ -35,7 +35,7 @@ jobs:
         run: |
           mkdir -p sub_recon
           touch sub_recon/all_subs.txt
-          subfinder -d nasa.gov -silent > sub_recon/current_scan.txt
+          subfinder -d miro.com -silent > sub_recon/current_scan.txt
 
       - name: Compare and Find New Subdomains
         id: compare
