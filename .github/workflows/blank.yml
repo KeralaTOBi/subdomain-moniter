@@ -65,7 +65,7 @@ jobs:
           token: ${{ secrets.SLACK_BOT }}
           payload: |
             {
-              "channel_id": "C0A5M7P61N3",
+              "channel_id": "C0AGVMVMRT3",
               "initial_comment": "🎯 New subdomains discovered for miro.com! (Total: ${{ steps.compare.outputs.new_count }})",
               "file": "./sub_recon/new_subs.txt",
               "filename": "miro_new_subs.txt"
