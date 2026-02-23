@@ -34,7 +34,7 @@ jobs:
         run: |
           mkdir -p sub_recon
           touch sub_recon/all_subs.txt
-          subfinder -d farfetch.com -silent > sub_recon/current_scan.txt
+          subfinder -d miro.com -silent > sub_recon/current_scan.txt
 
       - name: Compare and Find New Subdomains
         id: compare
