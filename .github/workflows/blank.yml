@@ -25,7 +25,7 @@ jobs:
       - name: Checkout Private Results Repo
         uses: actions/checkout@v4
         with:
-          repository: YourGitHubUsername/recon-results # Change this!
+          repository: KeralaTOBi/recon-results # Change this!
           token: ${{ secrets.RESULTS_REPO_TOKEN }}
           path: results
 
