@@ -27,66 +27,68 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/recon-tools
-          key: ${{ runner.os }}-recon-tools-v3
+          key: ${{ runner.os }}-recon-tools-v4 # Incremented to v4 to ensure fresh start
 
       - name: Install Tools (Only if Cache Miss)
         if: steps.cache-tools.outputs.cache-hit != 'true'
         run: |
           mkdir -p ~/recon-tools
           
-          # 1. Subfinder
+          # 1. Subfinder (Binary)
           LATEST_SUB=$(curl -s https://api.github.com/repos/projectdiscovery/subfinder/releases/latest | jq -r '.tag_name' | sed 's/v//')
           curl -sL "https://github.com/projectdiscovery/subfinder/releases/download/v${LATEST_SUB}/subfinder_${LATEST_SUB}_linux_amd64.zip" -o subfinder.zip
           unzip -o subfinder.zip && mv subfinder ~/recon-tools/
           
-          # 2. Assetfinder
-          sudo apt-get update && sudo apt-get install -y golang-go
-          go install github.com/tomnomnom/assetfinder@latest
-          cp ~/go/bin/assetfinder ~/recon-tools/
+          # 2. Assetfinder (Direct Binary - Instantly ready)
+          curl -sL "https://github.com/tomnomnom/assetfinder/releases/download/v0.1.1/assetfinder-linux-amd64-0.1.1.tgz" -o assetfinder.tgz
+          tar -xvf assetfinder.tgz && mv assetfinder ~/recon-tools/
 
-          # 3. Amass (Fixed path move)
+          # 3. Amass (Using .tar.gz and robust find logic)
           LATEST_AMASS=$(curl -s https://api.github.com/repos/owasp-amass/amass/releases/latest | jq -r '.tag_name')
-          curl -sL "https://github.com/owasp-amass/amass/releases/download/${LATEST_AMASS}/amass_linux_amd64.zip" -o amass.zip
-          unzip -o amass.zip
-          # Finding the binary specifically to avoid folder name issues
+          curl -sL "https://github.com/owasp-amass/amass/releases/download/${LATEST_AMASS}/amass_linux_amd64.tar.gz" -o amass.tar.gz
+          tar -xzvf amass.tar.gz
           find . -name "amass" -type f -exec mv {} ~/recon-tools/ \;
 
-          rm -rf subfinder.zip amass.zip amass_linux_amd64
+          # Cleanup
+          rm -rf subfinder.zip assetfinder.tgz amass.tar.gz amass_linux_amd64
           chmod +x ~/recon-tools/*
 
       - name: Add Tools to PATH
         run: |
           echo "$HOME/recon-tools" >> $GITHUB_PATH
-          # Force export for current shell just in case
           echo "PATH=$HOME/recon-tools:$PATH" >> $GITHUB_ENV
 
       - name: Multi-Tool Subdomain Discovery
         run: |
           mkdir -p sub_recon
           TARGET="miro.com"
+          touch sub_recon/all_subs.txt
           
-          echo "[+] Starting Subfinder..."
+          echo "[+] Running Subfinder..."
           subfinder -d $TARGET -silent > sub_recon/subs1.txt || true
           
-          echo "[+] Starting Assetfinder..."
+          echo "[+] Running Assetfinder..."
           assetfinder --subs-only $TARGET > sub_recon/subs2.txt || true
           
-          echo "[+] Starting Amass..."
+          echo "[+] Running Amass (Passive)..."
           amass enum -passive -d $TARGET > sub_recon/subs3.txt || true
           
-          # Merge all results into the final scan file
+          # Combine and filter only relevant domains
           cat sub_recon/subs1.txt sub_recon/subs2.txt sub_recon/subs3.txt | sort -u | grep "$TARGET" > sub_recon/current_scan.txt
 
       - name: Compare and Find New Subdomains
         id: compare
         run: |
+          # Create empty file if first run
           touch sub_recon/all_subs.txt
+          
           if [ ! -s sub_recon/all_subs.txt ]; then
             echo "IS_FIRST_RUN=true" >> $GITHUB_ENV
           else
             echo "IS_FIRST_RUN=false" >> $GITHUB_ENV
           fi
 
+          # Find lines in current scan NOT in our history
           grep -Fvxf sub_recon/all_subs.txt sub_recon/current_scan.txt > sub_recon/new_subs.txt || true
 
           if [ -s sub_recon/new_subs.txt ]; then
@@ -99,7 +101,8 @@ jobs:
             echo "new_found=false" >> $GITHUB_OUTPUT
           fi
 
-      - name: Upload New Subs File to Slack
+      - name: Notify Slack
+        # Only notify if new subs found AND it's not the very first run (to avoid 1000+ alerts)
         if: steps.compare.outputs.new_found == 'true' && env.IS_FIRST_RUN == 'false'
         uses: slackapi/slack-github-action@v2.1.1
         with:
@@ -108,20 +111,20 @@ jobs:
           payload: |
             {
               "channel_id": "C0AGVMVMRT3",
-              "initial_comment": "🎯 New subdomains discovered for miro.com! (Total: ${{ steps.compare.outputs.new_count }})",
+              "initial_comment": "🎯 *New Attack Surface Discovery*\nTarget: `miro.com`\nNew Subdomains: `${{ steps.compare.outputs.new_count }}`",
               "file": "./sub_recon/new_subs.txt",
               "filename": "miro_new_subs.txt"
             }
 
-      - name: Commit and Push Changes
+      - name: Commit and Push Results
         if: steps.compare.outputs.new_found == 'true'
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add sub_recon/all_subs.txt
-          git commit -m "Recon Update: found ${{ steps.compare.outputs.new_count }} new subs"
+          git commit -m "Recon Update: found ${{ steps.compare.outputs.new_count }} new subdomains"
           git push origin main
 
-      - name: Cleanup
+      - name: Final Cleanup
         if: always()
         run: rm -f sub_recon/subs1.txt sub_recon/subs2.txt sub_recon/subs3.txt sub_recon/current_scan.txt sub_recon/new_subs.txt
