@@ -27,30 +27,33 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/recon-tools
-          key: ${{ runner.os }}-recon-tools-v4 # Incremented to v4 to ensure fresh start
+          key: ${{ runner.os }}-recon-tools-v5
 
       - name: Install Tools (Only if Cache Miss)
         if: steps.cache-tools.outputs.cache-hit != 'true'
         run: |
           mkdir -p ~/recon-tools
           
-          # 1. Subfinder (Binary)
+          # Subfinder
           LATEST_SUB=$(curl -s https://api.github.com/repos/projectdiscovery/subfinder/releases/latest | jq -r '.tag_name' | sed 's/v//')
           curl -sL "https://github.com/projectdiscovery/subfinder/releases/download/v${LATEST_SUB}/subfinder_${LATEST_SUB}_linux_amd64.zip" -o subfinder.zip
           unzip -o subfinder.zip && mv subfinder ~/recon-tools/
           
-          # 2. Assetfinder (Direct Binary - Instantly ready)
+          # Assetfinder
           curl -sL "https://github.com/tomnomnom/assetfinder/releases/download/v0.1.1/assetfinder-linux-amd64-0.1.1.tgz" -o assetfinder.tgz
           tar -xvf assetfinder.tgz && mv assetfinder ~/recon-tools/
 
-          # 3. Amass (Using .tar.gz and robust find logic)
+          # Amass
           LATEST_AMASS=$(curl -s https://api.github.com/repos/owasp-amass/amass/releases/latest | jq -r '.tag_name')
           curl -sL "https://github.com/owasp-amass/amass/releases/download/${LATEST_AMASS}/amass_linux_amd64.tar.gz" -o amass.tar.gz
           tar -xzvf amass.tar.gz
           find . -name "amass" -type f -exec mv {} ~/recon-tools/ \;
 
-          # Cleanup
-          rm -rf subfinder.zip assetfinder.tgz amass.tar.gz amass_linux_amd64
+          # ANEW (The magic tool for 'New' detection)
+          curl -sL "https://github.com/tomnomnom/anew/releases/download/v0.1.1/anew-linux-amd64-0.1.1.tgz" -o anew.tgz
+          tar -xvf anew.tgz && mv anew ~/recon-tools/
+
+          rm -rf *.zip *.tgz amass_linux_amd64
           chmod +x ~/recon-tools/*
 
       - name: Add Tools to PATH
@@ -58,52 +61,34 @@ jobs:
           echo "$HOME/recon-tools" >> $GITHUB_PATH
           echo "PATH=$HOME/recon-tools:$PATH" >> $GITHUB_ENV
 
-      - name: Multi-Tool Subdomain Discovery
+      - name: Run Recon with Anew
         run: |
           mkdir -p sub_recon
           TARGET="miro.com"
+          
+          # Ensure master file exists
           touch sub_recon/all_subs.txt
           
-          echo "[+] Running Subfinder..."
-          subfinder -d $TARGET -silent > sub_recon/subs1.txt || true
-          
-          echo "[+] Running Assetfinder..."
-          assetfinder --subs-only $TARGET > sub_recon/subs2.txt || true
-          
-          echo "[+] Running Amass (Passive)..."
-          amass enum -passive -d $TARGET > sub_recon/subs3.txt || true
-          
-          # Combine and filter only relevant domains
-          cat sub_recon/subs1.txt sub_recon/subs2.txt sub_recon/subs3.txt | sort -u | grep "$TARGET" > sub_recon/current_scan.txt
+          # Run everything and pipe through anew
+          # anew will append new subs to all_subs.txt AND print them to new_subs.txt
+          {
+            subfinder -d $TARGET -silent
+            assetfinder --subs-only $TARGET
+            amass enum -passive -d $TARGET
+          } | grep "$TARGET" | anew sub_recon/all_subs.txt > sub_recon/new_subs.txt
 
-      - name: Compare and Find New Subdomains
-        id: compare
+      - name: Check for Findings
+        id: check
         run: |
-          # Create empty file if first run
-          touch sub_recon/all_subs.txt
-          
-          if [ ! -s sub_recon/all_subs.txt ]; then
-            echo "IS_FIRST_RUN=true" >> $GITHUB_ENV
-          else
-            echo "IS_FIRST_RUN=false" >> $GITHUB_ENV
-          fi
-
-          # Find lines in current scan NOT in our history
-          grep -Fvxf sub_recon/all_subs.txt sub_recon/current_scan.txt > sub_recon/new_subs.txt || true
-
           if [ -s sub_recon/new_subs.txt ]; then
-            COUNT=$(wc -l < sub_recon/new_subs.txt | xargs)
-            echo "new_found=true" >> $GITHUB_OUTPUT
-            echo "new_count=$COUNT" >> $GITHUB_OUTPUT
-            cat sub_recon/new_subs.txt >> sub_recon/all_subs.txt
-            sort -u sub_recon/all_subs.txt -o sub_recon/all_subs.txt
+            echo "found=true" >> $GITHUB_OUTPUT
+            echo "count=$(wc -l < sub_recon/new_subs.txt)" >> $GITHUB_OUTPUT
           else
-            echo "new_found=false" >> $GITHUB_OUTPUT
+            echo "found=false" >> $GITHUB_OUTPUT
           fi
 
       - name: Notify Slack
-        # Only notify if new subs found AND it's not the very first run (to avoid 1000+ alerts)
-        if: steps.compare.outputs.new_found == 'true' && env.IS_FIRST_RUN == 'false'
+        if: steps.check.outputs.found == 'true'
         uses: slackapi/slack-github-action@v2.1.1
         with:
           method: files.uploadV2
@@ -111,20 +96,16 @@ jobs:
           payload: |
             {
               "channel_id": "C0AGVMVMRT3",
-              "initial_comment": "🎯 *New Attack Surface Discovery*\nTarget: `miro.com`\nNew Subdomains: `${{ steps.compare.outputs.new_count }}`",
+              "initial_comment": "🆕 `${{ steps.check.outputs.count }}` new subdomains found for `miro.com`!",
               "file": "./sub_recon/new_subs.txt",
-              "filename": "miro_new_subs.txt"
+              "filename": "new_subs.txt"
             }
 
-      - name: Commit and Push Results
-        if: steps.compare.outputs.new_found == 'true'
+      - name: Commit Master List
+        if: steps.check.outputs.found == 'true'
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add sub_recon/all_subs.txt
-          git commit -m "Recon Update: found ${{ steps.compare.outputs.new_count }} new subdomains"
+          git commit -m "Recon Update: +${{ steps.check.outputs.count }} subdomains"
           git push origin main
-
-      - name: Final Cleanup
-        if: always()
-        run: rm -f sub_recon/subs1.txt sub_recon/subs2.txt sub_recon/subs3.txt sub_recon/current_scan.txt sub_recon/new_subs.txt
