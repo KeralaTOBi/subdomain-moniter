@@ -44,6 +44,10 @@ br.farfetch.com
 brand.miro.com
 brandkit.miro.com
 buf.miro.com
+callback.production.polycodex.miro.com
+canvas.miro.com
+canvas24.miro.com
+cardinal.miro.com
 cdn-images.farfetch.com
 cdn-static.farfetch.com
 cdn-videos.farfetch.com
@@ -206,7 +210,9 @@ production-alexalee.eu02.miro.com
 production-alexfaust.eu02.miro.com
 production-alfredprotocol.eu02.miro.com
 production-aliciabacker-1.eu02.miro.com
+production-aliciabacker-2.eu02.miro.com
 production-aliciahunt-1.eu02.miro.com
+production-aliciahunt-2.eu02.miro.com
 production-alowal.eu02.miro.com
 production-amazo.eu02.miro.com
 production-amenadiel.eu02.miro.com
@@ -217,6 +223,7 @@ production-anomaly.eu02.miro.com
 production-anthonybellows.eu02.miro.com
 production-antichrist.eu02.miro.com
 production-antigreen-1.eu02.miro.com
+production-antigreen-2.eu02.miro.com
 production-antimonitor.eu02.miro.com
 production-anubis.eu02.miro.com
 production-appell.eu02.miro.com
@@ -236,6 +243,7 @@ production-lachiondo.eu02.miro.com
 production-lexluthor.eu02.miro.com
 production-maxiezeus.eu02.miro.com
 production-mnemon.eu02.miro.com
+production-orbeta.eu02.miro.com
 production-pizzul.eu02.miro.com
 production-poisonivy.eu02.miro.com
 production-rasalghul.eu02.miro.com
