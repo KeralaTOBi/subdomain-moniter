@@ -1,8 +1,12 @@
-name: Two-Repo Recon
+name: recon
 on:
   schedule:
     - cron: "0 */1 * * *"
   workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
 
 permissions:
   contents: write
@@ -10,57 +14,51 @@ permissions:
 jobs:
   recon:
     runs-on: ubuntu-latest
+    timeout-minutes: 25
     steps:
-      - name: Checkout Public Tools
+      - name: Checkout Repository
         uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+          fetch-depth: 0
 
-      - name: Install Subfinder
+      - name: Install Subfinder (Binary)
         run: |
           LATEST_VERSION=$(curl -s https://api.github.com/repos/projectdiscovery/subfinder/releases/latest | jq -r '.tag_name' | sed 's/v//')
           curl -sL "https://github.com/projectdiscovery/subfinder/releases/download/v${LATEST_VERSION}/subfinder_${LATEST_VERSION}_linux_amd64.zip" -o subfinder.zip
           unzip -o subfinder.zip
           sudo mv subfinder /usr/local/bin/
+          rm -f subfinder.zip subfinder
 
-      # This step clones your PRIVATE repo into a folder called 'results'
-      - name: Checkout Private Results Repo
-        uses: actions/checkout@v4
-        with:
-          repository: KeralaTOBi/recon-results # Change this!
-          token: ${{ secrets.RESULTS_REPO_TOKEN }}
-          path: results
-
-      - name: Run Discovery
+      - name: Run Subdomain Discovery
         run: |
-          mkdir -p results/miro
-          touch results/miro/all_subs.txt
-          subfinder -d miro.com -silent > current_scan.txt
+          mkdir -p sub_recon
+          touch sub_recon/all_subs.txt
+          subfinder -d miro.com -silent > sub_recon/current_scan.txt
 
-      - name: Compare and Update
+      - name: Compare and Find New Subdomains
         id: compare
         run: |
-          # Find new subdomains
-          grep -Fvxf results/miro/all_subs.txt current_scan.txt > new_subs.txt || true
-          
-          if [ -s new_subs.txt ]; then
+          if [ ! -s sub_recon/all_subs.txt ]; then
+            echo "IS_FIRST_RUN=true" >> $GITHUB_ENV
+          else
+            echo "IS_FIRST_RUN=false" >> $GITHUB_ENV
+          fi
+
+          grep -Fvxf sub_recon/all_subs.txt sub_recon/current_scan.txt > sub_recon/new_subs.txt || true
+
+          if [ -s sub_recon/new_subs.txt ]; then
+            COUNT=$(wc -l < sub_recon/new_subs.txt | xargs)
             echo "new_found=true" >> $GITHUB_OUTPUT
-            cat new_subs.txt >> results/miro/all_subs.txt
-            sort -u results/miro/all_subs.txt -o results/miro/all_subs.txt
+            echo "new_count=$COUNT" >> $GITHUB_OUTPUT
+            cat sub_recon/new_subs.txt >> sub_recon/all_subs.txt
+            sort -u sub_recon/all_subs.txt -o sub_recon/all_subs.txt
           else
             echo "new_found=false" >> $GITHUB_OUTPUT
           fi
 
-      - name: Push to Private Repo
-        if: steps.compare.outputs.new_found == 'true'
-        run: |
-          cd results
-          git config --local user.email "action@github.com"
-          git config --local user.name "Recon Bot"
-          git add miro/all_subs.txt
-          git commit -m "Update Miro Subs: $(date +'%Y-%m-%d %H:%M')"
-          git push origin main
-
-      - name: Notify Slack
-        if: steps.compare.outputs.new_found == 'true'
+      - name: Upload New Subs File to Slack
+        if: steps.compare.outputs.new_found == 'true' && env.IS_FIRST_RUN == 'false'
         uses: slackapi/slack-github-action@v2.1.1
         with:
           method: files.uploadV2
@@ -68,7 +66,21 @@ jobs:
           payload: |
             {
               "channel_id": "C0AGVMVMRT3",
-              "initial_comment": "🎯 New Miro subdomains saved to private repo!",
-              "file": "./new_subs.txt",
-              "filename": "new_subs.txt"
+              "initial_comment": "🎯 New subdomains discovered for miro.com! (Total: ${{ steps.compare.outputs.new_count }})",
+              "file": "./sub_recon/new_subs.txt",
+              "filename": "miro_new_subs.txt"
             }
+
+      - name: Commit and Push Changes
+        if: steps.compare.outputs.new_found == 'true'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add sub_recon/all_subs.txt
+          git commit -m "Recon Update [miro.com]: $(date +'%Y-%m-%d %H:%M')"
+          git push origin main
+
+      - name: Cleanup Temporary Files
+        if: always()
+        run: |
+          rm -f sub_recon/current_scan.txt sub_recon/new_subs.txt
