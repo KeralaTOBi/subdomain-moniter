@@ -21,6 +21,46 @@ jobs:
         with:
           persist-credentials: true
           fetch-depth: 0
+      - name: Cache Recon Tools
+        id: cache-tools
+        uses: actions/cache@v4
+        with:
+          # This is where we will store our binaries
+          path: /usr/local/bin/recon-tools
+          key: ${{ runner.os }}-recon-tools-v1
+
+      - name: Install Tools (Only if Cache Miss)
+        if: steps.cache-tools.outputs.cache-hit != 'true'
+        run: |
+          mkdir -p /usr/local/bin/recon-tools
+          
+          # Install Subfinder
+          LATEST_SUB=$(curl -s https://api.github.com/repos/projectdiscovery/subfinder/releases/latest | jq -r '.tag_name' | sed 's/v//')
+          curl -sL "https://github.com/projectdiscovery/subfinder/releases/download/v${LATEST_SUB}/subfinder_${LATEST_SUB}_linux_amd64.zip" -o subfinder.zip
+          unzip -o subfinder.zip && mv subfinder /usr/local/bin/recon-tools/
+          
+          # Install Assetfinder
+          sudo apt-get update && sudo apt-get install -y golang-go
+          go install github.com/tomnomnom/assetfinder@latest
+          cp ~/go/bin/assetfinder /usr/local/bin/recon-tools/
+
+          # Install Amass
+          LATEST_AMASS=$(curl -s https://api.github.com/repos/owasp-amass/amass/releases/latest | jq -r '.tag_name')
+          curl -sL "https://github.com/owasp-amass/amass/releases/download/${LATEST_AMASS}/amass_linux_amd64.zip" -o amass.zip
+          unzip -o amass.zip && mv amass_linux_amd64/amass /usr/local/bin/recon-tools/
+
+          rm -rf subfinder.zip amass.zip amass_linux_amd64
+
+      - name: Add Tools to PATH
+        run: echo "/usr/local/bin/recon-tools" >> $GITHUB_PATH
+
+      - name: Multi-Tool Subdomain Discovery
+        # No changes needed here, tools are now in the PATH
+        run: |
+          subfinder -d miro.com -silent > subs.txt
+          assetfinder --subs-only miro.com >> subs.txt
+          amass enum -passive -d miro.com >> subs.txt
+          sort -u subs.txt -o sub_recon/current_scan.txt
 
       - name: Install Tools
         run: |
