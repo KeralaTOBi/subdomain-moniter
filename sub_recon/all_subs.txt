@@ -172,6 +172,7 @@ ftp.miro.com
 games.miro.com
 generative-qa.miro.com
 github.miro.com
+global-db-static-website.miro.com
 go.buf.miro.com
 go.miro.com
 go2.miro.com
