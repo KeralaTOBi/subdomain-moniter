@@ -54,6 +54,7 @@ bid46k4.marketing.miro.com
 billing-and-payment.miro.com
 billing.miro.com
 bitmovin-a.hollande.miro.com
+blog-live.miro.com
 board-export-cdn.au01.miro.com
 board-export-service-cdn.au01.miro.com
 board-export-service-cdn.eu01.miro.com
