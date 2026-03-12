@@ -374,6 +374,7 @@ template-metadata-service.au01.miro.com
 template-metadata-service.eu01.miro.com
 template-metadata-service.us01.miro.com
 templates.miro.com
+test-framer.miro.com
 thebernardgroup.miro.com
 tmp.dev.meet.miro.com
 tr.farfetch.com
