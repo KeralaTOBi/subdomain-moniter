@@ -71,6 +71,7 @@ brand.miro.com
 brandkit.miro.com
 buf.miro.com
 callback.production.polycodex.miro.com
+canvas-registration.miro.com
 canvas.miro.com
 canvas24.miro.com
 cardinal.miro.com
