@@ -348,6 +348,7 @@ secure.farfetch.com
 segmentation.miro.com
 shared.av.miro.com
 shop.miro.com
+slack.miro.com
 stage.av.miro.com
 stage.meet.miro.com
 static-website.au01.miro.com
