@@ -92,6 +92,7 @@ com.miro.com
 community.miro.com
 communitygroups.miro.com
 consultantcommunity.miro.com
+content-migration-service.au01.miro.com
 content-migration-service.eu01.miro.com
 content-migration-service.us01.miro.com
 content-migration.au01.miro.com
