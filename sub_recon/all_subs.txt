@@ -129,6 +129,9 @@ cp.miro.com
 cr-tag.farfetch.com
 cs129nxc.farfetch.com
 customers.farfetch.com
+cutoff-cdn.au01.miro.com
+cutoff-cdn.eu01.miro.com
+cutoff-cdn.us01.miro.com
 cutoff.au01.miro.com
 cutoff.eu01.miro.com
 cutoff.us01.miro.com
