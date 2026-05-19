@@ -14,6 +14,7 @@ admin.au01.miro.com
 admin.desktop.miro.com
 admin.eu01.miro.com
 admin.eu02.miro.com
+admin.jp01.miro.com
 admin.miro.com
 admin.us.miro.com
 admin.us01.miro.com
@@ -76,6 +77,7 @@ board-export-cdn.au01.miro.com
 board-export-service-cdn.au01.miro.com
 board-export-service-cdn.eu01.miro.com
 board-export-service-cdn.eu02.miro.com
+board-export-service-cdn.jp01.miro.com
 board-export-service-cdn.us01.miro.com
 board-export.au01.miro.com
 board-export.eu01.miro.com
@@ -148,6 +150,7 @@ development.miro.com
 digital-twin-mcp.au01.miro.com
 digital-twin-mcp.eu01.miro.com
 digital-twin-mcp.eu02.miro.com
+digital-twin-mcp.jp01.miro.com
 digital-twin-mcp.us01.miro.com
 discovery.media.av.miro.com
 discovery.media.meet.miro.com
@@ -192,12 +195,14 @@ euwe3.media.meet.miro.com
 eventhub.au01.miro.com
 eventhub.eu01.miro.com
 eventhub.eu02.miro.com
+eventhub.jp01.miro.com
 eventhub.us01.miro.com
 events.miro.com
 exclusivejeans.miro.com
 experimentation-evaluator.au01.miro.com
 experimentation-evaluator.eu01.miro.com
 experimentation-evaluator.eu02.miro.com
+experimentation-evaluator.jp01.miro.com
 experimentation-evaluator.us01.miro.com
 external.desktop.miro.com
 external.eu01.miro.com
@@ -249,6 +254,7 @@ internal.experimentation-evaluator.eu01.miro.com
 ipmdemo.miro.com
 jenkins.help.miro.com
 jira-cards.miro.com
+jp01.miro.com
 k4.miro.com
 k8s.eu01.miro.com
 k8s.help.miro.com
@@ -419,12 +425,14 @@ quiz.miro.com
 r.au01.miro.com
 r.eu01.miro.com
 r.eu02.miro.com
+r.jp01.miro.com
 r.miro.com
 r.us.miro.com
 r.us01.miro.com
 r01.au01.miro.com
 r01.eu01.miro.com
 r01.eu02.miro.com
+r01.jp01.miro.com
 r01.miro.com
 r01.us.miro.com
 r01.us01.miro.com
@@ -466,6 +474,7 @@ support.miro.com
 svc.au01.miro.com
 svc.eu01.miro.com
 svc.eu02.miro.com
+svc.jp01.miro.com
 svc.miro.com
 svc.us.miro.com
 svc.us01.miro.com
