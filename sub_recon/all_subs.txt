@@ -398,6 +398,7 @@ production-arkham.eu02.miro.com
 production-arkillo.eu02.miro.com
 production-as-main.au01.miro.com
 production-as-main.eu02.miro.com
+production-as-main.jp01.miro.com
 production-atrain.eu02.miro.com
 production-ebon.eu02.miro.com
 production-epoch.eu02.miro.com
