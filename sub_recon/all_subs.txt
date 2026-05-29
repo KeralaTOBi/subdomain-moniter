@@ -133,6 +133,7 @@ cs129nxc.farfetch.com
 customers.farfetch.com
 cutoff-cdn.au01.miro.com
 cutoff-cdn.eu01.miro.com
+cutoff-cdn.jp01.miro.com
 cutoff-cdn.us01.miro.com
 cutoff.au01.miro.com
 cutoff.eu01.miro.com
@@ -285,6 +286,7 @@ mail2.eu01.miro.com
 manager.miro.com
 marketing.miro.com
 marketplace-static.au01.miro.com
+marketplace-static.jp01.miro.com
 marketplace-static.miro.com
 marketplace-static.us.miro.com
 mcp.miro.com
@@ -491,6 +493,7 @@ template-metadata-service-static.miro.com
 template-metadata-service-static.us.miro.com
 template-metadata-service.au01.miro.com
 template-metadata-service.eu01.miro.com
+template-metadata-service.jp01.miro.com
 template-metadata-service.us01.miro.com
 templates.miro.com
 test-framer.miro.com
