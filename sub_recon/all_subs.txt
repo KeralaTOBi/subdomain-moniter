@@ -521,6 +521,7 @@ us99.miro.com
 usea2.media.av.miro.com
 usea2.media.meet.miro.com
 usermedia.au01.miro.com
+usermedia.jp01.miro.com
 usermedia.miro.com
 usermedia.us.miro.com
 uswe2.media.av.miro.com
