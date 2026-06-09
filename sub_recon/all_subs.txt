@@ -85,6 +85,7 @@ board-export.us01.miro.com
 board-recording-storage.au01.miro.com
 board-recording-storage.miro.com
 board-recording-storage.us.miro.com
+board-recording.jp01.miro.com
 br.farfetch.com
 brand.miro.com
 brandkit.miro.com
