@@ -484,6 +484,7 @@ svc.us.miro.com
 svc.us01.miro.com
 svg-convert-v2-api-cdn.au01.miro.com
 svg-convert-v2-api-cdn.eu01.miro.com
+svg-convert-v2-api-cdn.jp01.miro.com
 svg-convert-v2-api-cdn.us01.miro.com
 svg-convert.au01.miro.com
 svg-convert.eu01.miro.com
