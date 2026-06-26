@@ -227,6 +227,14 @@ generative-qa.miro.com
 github.miro.com
 gitlab.help.miro.com
 global-db-static-website.miro.com
+global-tmp-beta.developers.miro.com
+global-tmp-communitygroups.miro.com
+global-tmp-consultantcommunity.miro.com
+global-tmp-disney.miro.com
+global-tmp-enterpriseadvocates.miro.com
+global-tmp-events.miro.com
+global-tmp-go.miro.com
+global-tmp-www.miro.com
 go.buf.miro.com
 go.click.miro.com
 go.eu01.miro.com
