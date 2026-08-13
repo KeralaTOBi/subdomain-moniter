@@ -433,6 +433,7 @@ prometheus.eventhub.eu01.miro.com
 prometheus.help.miro.com
 promotion.miro.com
 public.help.miro.com
+pulse.miro.com
 push.farfetch.com
 quiz.miro.com
 r.au01.miro.com
