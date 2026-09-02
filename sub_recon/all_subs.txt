@@ -281,6 +281,7 @@ links.miro.com
 logs.au.media.av.miro.com
 logs.eu.media.av.miro.com
 logs.eu.media.stage.av.miro.com
+logs.media.av.miro.com
 logs.media.stage.av.miro.com
 logs.us.media.av.miro.com
 logs.us.media.stage.av.miro.com
