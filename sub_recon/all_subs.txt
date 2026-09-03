@@ -290,6 +290,7 @@ m.farfetch.com
 m.integrations.miro.com
 m2umobile.miro.com
 mail.discovery.media.av.miro.com
+mail.euce1.media.av.miro.com
 mail.farfetch.com
 mail.miro.com
 mail2.av.miro.com
@@ -589,6 +590,7 @@ www.e.insights.miro.com
 www.email.farfetch.com
 www.emailbr.farfetch.com
 www.emailcis.farfetch.com
+www.euce1.media.av.miro.com
 www.events.miro.com
 www.farfetch.com
 www.i16.farfetch.com
