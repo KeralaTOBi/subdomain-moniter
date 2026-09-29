@@ -293,6 +293,7 @@ mail.discovery.media.av.miro.com
 mail.euce1.media.av.miro.com
 mail.farfetch.com
 mail.miro.com
+mail.us.miro.com
 mail2.av.miro.com
 mail2.eu01.miro.com
 manager.miro.com
@@ -600,4 +601,5 @@ www.miro.com
 www.mobile.farfetch.com
 www.orbea.com.miro.com
 www.retention-system-public.svc.miro.com
+www.us.miro.com
 wwww.miro.com
