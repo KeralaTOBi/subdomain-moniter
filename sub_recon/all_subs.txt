@@ -7,6 +7,7 @@
 0-svc.miro.com
 0.miro.com
 00-updates.miro.com
+00-updates9.miro.com
 00.miro.com
 000-com.miro.com
 000-comw.miro.com
@@ -17,7 +18,9 @@
 000-marketing.miro.com
 000-marketinga.miro.com
 000-svc.miro.com
+000-svc1.miro.com
 000.miro.com
+0002.miro.com
 000hello.miro.com
 000marketing.miro.com
 001-hello.miro.com
@@ -25,16 +28,20 @@
 001-marketing.miro.com
 001-marketing3.miro.com
 001-svc.miro.com
+001-updates.miro.com
 001marketing1.miro.com
 001notifications.miro.com
+001svc.miro.com
 002-com.miro.com
 002-events.miro.com
 002-hello.miro.com
+002-hello1.miro.com
 002-marketing.miro.com
 002-marketing5.miro.com
 002-svc.miro.com
 002updates.miro.com
 003-hello.miro.com
+003-hollande.miro.com
 003-hollandeq.miro.com
 003-svc.miro.com
 003-svcc.miro.com
@@ -44,6 +51,7 @@
 003events.miro.com
 003events5.miro.com
 003svc.miro.com
+004-hello.miro.com
 004-info.miro.com
 004-marketing.miro.com
 004-svc.miro.com
@@ -64,6 +72,7 @@
 005-svc5.miro.com
 005.miro.com
 005billing.miro.com
+005hello.miro.com
 005marketing.miro.com
 005marketing5.miro.com
 005svc.miro.com
@@ -73,6 +82,7 @@
 006billing.miro.com
 006events.miro.com
 006events1.miro.com
+006svc.miro.com
 006updates.miro.com
 006updates5.miro.com
 007-3782705m.miro.com
@@ -80,6 +90,7 @@
 007-events-svc009info-004events-payy.miro.com
 007-events.miro.com
 007-events3.miro.com
+007-pedia.miro.com
 007-svc.miro.com
 007-updates.miro.com
 007-updates9.miro.com
@@ -96,6 +107,7 @@
 008events.miro.com
 008events7.miro.com
 008info.miro.com
+008info3.miro.com
 008svc.miro.com
 009-3782705m.miro.com
 009-events.miro.com
@@ -111,6 +123,7 @@
 00marketing5.miro.com
 00svc.miro.com
 00updates.miro.com
+01-billing.miro.com
 01-hello.miro.com
 01-marketing.miro.com
 01.miro.com
@@ -136,11 +149,13 @@
 02marketing.miro.com
 02svc.miro.com
 03-com.miro.com
+03-events.miro.com
 03-info.miro.com
 03.miro.com
 030.miro.com
 0332437v.miro.com
 0365.miro.com
+03marketing.miro.com
 03marketing7.miro.com
 03updates.miro.com
 03updates9.miro.com
@@ -168,11 +183,13 @@
 05-marketing5.miro.com
 05.miro.com
 05com.miro.com
+06-com.miro.com
 10730.miro.com
 156-5.miro.com
 1e30a.miro.com
 1www.miro.com
 2.miro.com
+2.svc.miro.com
 3782705m.miro.com
 3782705mc.00.miro.com
 38957.miro.com
@@ -182,6 +199,7 @@ a.developers.miro.com
 a.miro.com
 aarthika-staging-phx2.miro.com
 aarthika-staging-phx2c.miro.com
+ac.miro.com
 academy.miro.com
 academy3.miro.com
 acatalogueounts.miro.com
@@ -263,9 +281,11 @@ app25a.svc.miro.com
 app26.miro.com
 app26a.svc.miro.com
 app28.miro.com
+app28a.svc.miro.com
 app29.miro.com
 app29a.svc.miro.com
 app3.svc.miro.com
+app30.miro.com
 app31a.svc.miro.com
 app32.miro.com
 app32a.svc.miro.com
@@ -304,6 +324,7 @@ app87.miro.com
 app88.svc.miro.com
 app89.miro.com
 app89.svc.miro.com
+app9.miro.com
 app917.svc.miro.com
 app93.miro.com
 app96.miro.com
@@ -368,6 +389,7 @@ board-export.au01.miro.com
 board-export.eu01.miro.com
 board-export.us01.miro.com
 board-export9.us01.miro.com
+board-exportu.eu01.miro.com
 board-recording-service-1.svc.miro.com
 board-recording-service-privatec.svc.miro.com
 board-recording-service-publico.svc.miro.com
@@ -382,12 +404,14 @@ bot.miro.com
 bounces.miro.com
 bouncess.miro.com
 br.farfetch.com
+br.miro.com
 brand.miro.com
 brandkit.miro.com
 buf.miro.com
 buf01.miro.com
 ca.miro.com
 callback.production.polycodex.miro.com
+callback1.production.polycodex.miro.com
 canvas-registration.miro.com
 canvas.miro.com
 canvas24.miro.com
@@ -413,6 +437,7 @@ cf.miro.com
 chem.miro.com
 ci.discovery.media.av.miro.com
 ci.experimentation-evaluator.eu01.miro.com
+ci.miro.com
 ci1.miro.com
 ci1.svc.miro.com
 ciscoshop.miro.com
@@ -430,6 +455,7 @@ cloud.account.miro.com
 cloud.e.miro.com
 cloud.miro.com
 cloud.pc.farfetch.com
+cloud7.e.miro.com
 cms.miro.com
 cn.miro.com
 co.miro.com
@@ -472,6 +498,7 @@ corp.svc.miro.com
 cp.miro.com
 cpanel54.miro.com
 cr-tag.farfetch.com
+cs.miro.com
 cs129nxc.farfetch.com
 cse.miro.com
 ctlsvc.miro.com
@@ -484,6 +511,7 @@ cutoff.au01.miro.com
 cutoff.eu01.miro.com
 cutoff.us01.miro.com
 cutoff5.svc.miro.com
+cutoff5.us01.miro.com
 cv-apps.svc.us.miro.com
 cv-appsa.svc.miro.com
 d269y12mnftu9c.miro.com
@@ -512,6 +540,7 @@ dex7.svc.us.miro.com
 dexg.svc.miro.com
 dhcp.miro.com
 digilander.miro.com
+digilander7.miro.com
 digital-twin-mcp.au01.miro.com
 digital-twin-mcp.eu01.miro.com
 digital-twin-mcp.eu02.miro.com
@@ -557,6 +586,7 @@ editor.miro.com
 ee.miro.com
 eks.miro.com
 elb.miro.com
+elp.miro.com
 email.farfetch.com
 email.info.miro.com
 email.miro.com
@@ -597,6 +627,7 @@ eventhub.us01.miro.com
 eventhub5.au01.miro.com
 eventhubu.us01.miro.com
 events.miro.com
+eventsi.00.miro.com
 exclusivejeans.miro.com
 experimentation-evaluator.au01.miro.com
 experimentation-evaluator.eu01.miro.com
@@ -665,6 +696,8 @@ goldilocks.miro.com
 goldilocks.svc.miro.com
 google-meet-integrationm.svc.miro.com
 google.miro.com
+grc2go.miro.com
+grosirkaospolos.miro.com
 groups.miro.com
 gsemail.miro.com
 gslink.miro.com
@@ -688,6 +721,7 @@ helloo.0.miro.com
 help.eu01.miro.com
 help.miro.com
 helpi.us.miro.com
+hh.miro.com
 hillsgrammar.miro.com
 himmele.miro.com
 himmelea.miro.com
@@ -695,6 +729,7 @@ history.miro.com
 historyc.miro.com
 hollande.miro.com
 home.miro.com
+homepage.miro.com
 homepage2.miro.com
 homepage3.miro.com
 homepage35.miro.com
@@ -718,6 +753,8 @@ info.miro.com
 infolab.miro.com
 informatik5.miro.com
 insights.miro.com
+inst.miro.com
+int-blog.miro.com
 int.experimentation-evaluator.eu01.miro.com
 int.miro.com
 integrations-internal.miro.com
@@ -799,6 +836,7 @@ miro-insights-shared-images.au01.miro.com
 miro-insights-shared-images.eu02.miro.com
 miro-insights-shared-models.au01.miro.com
 miro-insights-shared-models.eu02.miro.com
+miro-us.miro.com
 miro.com
 miro.ticketswap.pizzapizza.ticketswap.miro.com
 miroherocommunity.miro.com
@@ -854,6 +892,7 @@ owa.av.miro.com
 owa.eu01.miro.com
 owa.experimentation-evaluator.eu01.miro.com
 pages.pc.farfetch.com
+passport.miro.com
 pay.farfetch.com
 people.miro.com
 phone.miro.com
@@ -1144,6 +1183,7 @@ ww2.eu01.miro.com
 ww2.help.miro.com
 ww5.miro.com
 www.3782705m.miro.com
+www.academy.miro.com
 www.admin.miro.com
 www.admin.us.miro.com
 www.api.buf.miro.com
@@ -1155,12 +1195,14 @@ www.board-recording-storage.miro.com
 www.board-recording-storage.us.miro.com
 www.brand.miro.com
 www.brandkit.miro.com
+www.buf.miro.com
 www.click.e.miro.com
 www.clickstream.farfetch.com
 www.cloud.e.miro.com
 www.community.miro.com
 www.communitygroups.miro.com
 www.consultantcommunity.miro.com
+www.content-migration.us01.miro.com
 www.cutoff.eu01.miro.com
 www.dam.miro.com
 www.desktop.miro.com
@@ -1182,8 +1224,10 @@ www.euce1.media.av.miro.com
 www.events.miro.com
 www.farfetch.com
 www.fe-rtm.eu01.miro.com
+www.fe-rtm.us01.miro.com
 www.go.buf.miro.com
 www.go.miro.com
+www.go2.miro.com
 www.help.miro.com
 www.i16.farfetch.com
 www.image.account.miro.com
@@ -1210,9 +1254,12 @@ www.saml.buf.miro.com
 www.shop.miro.com
 www.stage.meet.miro.com
 www.status.miro.com
+www.studio.buf.miro.com
 www.svc.eu01.miro.com
 www.svc.miro.com
+www.svc.us.miro.com
 www.svc.us01.miro.com
+www.team.miro.com
 www.template-metadata-service-static.miro.com
 www.template-metadata-service-static.us.miro.com
 www.templates.miro.com
@@ -1222,6 +1269,7 @@ www.u003ewww.miro.com
 www.us.miro.com
 www.us01.miro.com
 www2s.miro.com
+www2u.miro.com
 www5a.miro.com
 www5c.miro.com
 www7b.miro.com
