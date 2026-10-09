@@ -29,9 +29,11 @@
 001-marketing3.miro.com
 001-svc.miro.com
 001-updates.miro.com
+001marketing.miro.com
 001marketing1.miro.com
 001notifications.miro.com
 001svc.miro.com
+002-3782705m.miro.com
 002-com.miro.com
 002-events.miro.com
 002-hello.miro.com
@@ -123,6 +125,7 @@
 00marketing5.miro.com
 00svc.miro.com
 00updates.miro.com
+00updates7.miro.com
 01-billing.miro.com
 01-hello.miro.com
 01-marketing.miro.com
@@ -131,6 +134,7 @@
 012.miro.com
 013782705m.miro.com
 01asduturf.miro.com
+01asduturfc.miro.com
 01billing.miro.com
 01billing7.miro.com
 01updates.miro.com
@@ -207,6 +211,7 @@ access-request-management-publicq.svc.us.miro.com
 access-request-management-publics.svc.miro.com
 access.miro.com
 account.help.miro.com
+account.miro.com
 accountb.miro.com
 acp.miro.com
 ad.miro.com
@@ -240,6 +245,7 @@ alertmanagerc.svc.us.miro.com
 alpha.help.miro.com
 americannational.miro.com
 analytics.eu01.miro.com
+ap-northeast-1m.elb.miro.com
 api.buf.miro.com
 api.eu01.miro.com
 api.farfetch.com
@@ -290,6 +296,7 @@ app31a.svc.miro.com
 app32.miro.com
 app32a.svc.miro.com
 app37a.svc.miro.com
+app38a.svc.miro.com
 app398com.miro.com
 app398comg.miro.com
 app39a.svc.miro.com
@@ -309,6 +316,7 @@ app47a.svc.miro.com
 app48.miro.com
 app48a.svc.miro.com
 app49.miro.com
+app5.svc.miro.com
 app50.miro.com
 app52.miro.com
 app52a.svc.miro.com
@@ -351,6 +359,7 @@ azure.help.miro.com
 b.hollande.miro.com
 backend.miro.com
 backendm.miro.com
+baidu.miro.com
 baijialezhuangxianhejishudafa.miro.com
 baijialezhuangxianhejishudafaa.miro.com
 baoimage.miro.com
@@ -370,6 +379,7 @@ billing-and-payment.miro.com
 billing.miro.com
 billinga.0.miro.com
 bip.miro.com
+bitedge.miro.com
 bitedges.miro.com
 bitmovin-a.hollande.miro.com
 bl.miro.com
@@ -521,6 +531,7 @@ db.integrations.miro.com
 dd.miro.com
 de.miro.com
 debtcounselling.miro.com
+demo.miro.com
 demo.svc.miro.com
 demosvc.miro.com
 demotest.miro.com
@@ -1081,6 +1092,7 @@ template-metadata-service.jp01.miro.com
 template-metadata-service.us01.miro.com
 template-social-service-public.svc.miro.com
 templates.miro.com
+templatesi.miro.com
 test-esa.miro.com
 test-framer.miro.com
 thebernardgroup.miro.com
@@ -1196,6 +1208,7 @@ www.board-recording-storage.us.miro.com
 www.brand.miro.com
 www.brandkit.miro.com
 www.buf.miro.com
+www.click.account.miro.com
 www.click.e.miro.com
 www.clickstream.farfetch.com
 www.cloud.e.miro.com
@@ -1206,7 +1219,9 @@ www.content-migration.us01.miro.com
 www.cutoff.eu01.miro.com
 www.dam.miro.com
 www.desktop.miro.com
+www.dev.meet.miro.com
 www.developers.miro.com
+www.discovery.media.rc.meet.miro.com
 www.dr-dbdr-euc1.dr.miro.com
 www.e.farfetch.com
 www.e.insights.miro.com
