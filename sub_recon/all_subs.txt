@@ -6,6 +6,7 @@
 0-kenmin.miro.com
 0-svc.miro.com
 0.miro.com
+00-svc.miro.com
 00-updates.miro.com
 00-updates9.miro.com
 00.miro.com
@@ -519,6 +520,7 @@ cutoff-cdn.jp01.miro.com
 cutoff-cdn.us01.miro.com
 cutoff.au01.miro.com
 cutoff.eu01.miro.com
+cutoff.miro.com
 cutoff.us01.miro.com
 cutoff5.svc.miro.com
 cutoff5.us01.miro.com
@@ -559,6 +561,7 @@ digital-twin-mcp.jp01.miro.com
 digital-twin-mcp.us01.miro.com
 disabledtesla.miro.com
 disabledteslao.miro.com
+discover.miro.com
 discoversandbox.miro.com
 discovery.media.av.miro.com
 discovery.media.meet.miro.com
@@ -741,6 +744,7 @@ historyc.miro.com
 hollande.miro.com
 home.miro.com
 homepage.miro.com
+homepage1.miro.com
 homepage2.miro.com
 homepage3.miro.com
 homepage35.miro.com
@@ -1114,6 +1118,7 @@ turn9.media.stage.av.miro.com
 turnk.media.av.miro.com
 u003ewww.miro.com
 uat.miro.com
+uk.miro.com
 unfused.farfetch.com
 uni.miro.com
 unimin.miro.com
@@ -1126,6 +1131,7 @@ url.farfetch.com
 us-global.miro.com
 us-static-website.miro.com
 us-west-2.miro.com
+us.media.av.miro.com
 us.media.stage.av.miro.com
 us.miro.com
 us01.miro.com
@@ -1215,6 +1221,7 @@ www.cloud.e.miro.com
 www.community.miro.com
 www.communitygroups.miro.com
 www.consultantcommunity.miro.com
+www.content-migration.eu01.miro.com
 www.content-migration.us01.miro.com
 www.cutoff.eu01.miro.com
 www.dam.miro.com
@@ -1253,6 +1260,7 @@ www.learns.miro.com
 www.links.m.miro.com
 www.lubo.miro.com
 www.m.farfetch.com
+www.marketing.miro.com
 www.meet.miro.com
 www.miro.com
 www.miroherocommunity.miro.com
@@ -1274,6 +1282,7 @@ www.svc.eu01.miro.com
 www.svc.miro.com
 www.svc.us.miro.com
 www.svc.us01.miro.com
+www.svg-convert.eu01.miro.com
 www.team.miro.com
 www.template-metadata-service-static.miro.com
 www.template-metadata-service-static.us.miro.com
@@ -1290,4 +1299,5 @@ www5c.miro.com
 www7b.miro.com
 wwww.miro.com
 xn--p1ai.miro.com
+zendesk1.miro.com
 zoom-app-backend7.svc.miro.com
