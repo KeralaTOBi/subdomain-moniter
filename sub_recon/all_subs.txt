@@ -23,6 +23,7 @@
 000.miro.com
 0002.miro.com
 000hello.miro.com
+000hollande.miro.com
 000marketing.miro.com
 001-hello.miro.com
 001-helloc.miro.com
@@ -70,8 +71,10 @@
 004updates.miro.com
 005-3782705m.miro.com
 005-3782705m7.miro.com
+005-info.miro.com
 005-marketing.miro.com
 005-marketingk.miro.com
+005-svc.miro.com
 005-svc5.miro.com
 005.miro.com
 005billing.miro.com
@@ -168,6 +171,7 @@
 04-events5.miro.com
 04-hollande.miro.com
 04-hollande3.miro.com
+04-marketing.miro.com
 04-marketing7.miro.com
 04-svc.miro.com
 04.miro.com
@@ -188,6 +192,7 @@
 05-marketing5.miro.com
 05.miro.com
 05com.miro.com
+05notifications.miro.com
 06-com.miro.com
 10730.miro.com
 156-5.miro.com
@@ -319,6 +324,7 @@ app48a.svc.miro.com
 app49.miro.com
 app5.svc.miro.com
 app50.miro.com
+app51a.svc.miro.com
 app52.miro.com
 app52a.svc.miro.com
 app6.miro.com
@@ -467,6 +473,7 @@ cloud.e.miro.com
 cloud.miro.com
 cloud.pc.farfetch.com
 cloud7.e.miro.com
+club.miro.com
 cms.miro.com
 cn.miro.com
 co.miro.com
@@ -668,6 +675,7 @@ feeds.miro.com
 ff.miro.com
 figma.svc.miro.com
 files.miro.com
+fls.miro.com
 flsw.api.miro.com
 fmr.miro.com
 forum.miro.com
@@ -745,6 +753,7 @@ hollande.miro.com
 home.miro.com
 homepage.miro.com
 homepage1.miro.com
+homepage1i.miro.com
 homepage2.miro.com
 homepage3.miro.com
 homepage35.miro.com
