@@ -1285,6 +1285,7 @@ www.retention-system-public.svc.miro.com
 www.saml.buf.miro.com
 www.shop.miro.com
 www.stage.meet.miro.com
+www.static-website.miro.com
 www.status.miro.com
 www.studio.buf.miro.com
 www.svc.eu01.miro.com
