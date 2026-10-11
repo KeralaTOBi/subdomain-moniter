@@ -681,6 +681,7 @@ fls.miro.com
 flsw.api.miro.com
 fmr.miro.com
 forum.miro.com
+forums.miro.com
 foxrothschild.miro.com
 fr.miro.com
 frontend-meetup.miro.com
